@@ -4,8 +4,6 @@ const { ApolloError } = require('apollo-server-express')
  * Validate a new user
  */
 module.exports = ({ username, email, password }) => {
-  const errors = {}
-
   if (username.length === 0) {
     throw new ApolloError('You must provide a username', 400)
   }
@@ -25,6 +23,4 @@ module.exports = ({ username, email, password }) => {
   if (password.length < 8) {
     throw new ApolloError('Password must be at least 8 characters', 400)
   }
-
-  return errors
 }

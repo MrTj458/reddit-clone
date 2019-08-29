@@ -12,6 +12,7 @@ module.exports = gql`
     createdAt: Date
     updatedAt: Date
     token: String
+    topics: [Topic]!
   }
 
   extend type Query {
