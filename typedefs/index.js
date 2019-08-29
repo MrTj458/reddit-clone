@@ -1,3 +1,7 @@
 const root = require('./root')
+const user = require('./user')
 
-module.exports = [root]
+/**
+ * Combine the types
+ */
+module.exports = [root, user]
