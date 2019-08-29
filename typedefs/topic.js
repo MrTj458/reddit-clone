@@ -1,5 +1,8 @@
 const { gql } = require('apollo-server-express')
 
+/**
+ * Topic graphql types
+ */
 module.exports = gql`
   type Topic {
     id: ID!
