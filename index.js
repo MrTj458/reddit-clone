@@ -1,8 +1,9 @@
 require('dotenv').config()
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
-const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 
+const { User } = require('./models')
 const typeDefs = require('./typedefs')
 const resolvers = require('./resolvers')
 
@@ -10,6 +11,9 @@ const resolvers = require('./resolvers')
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  resolverValidationOptions: {
+    requireResolversForResolveType: false,
+  },
   context: req => ({ ...req }),
 })
 
@@ -17,7 +21,17 @@ const server = new ApolloServer({
 const app = express()
 
 // Middleware
-app.use(cookieParser())
+app.use(async (req, res, next) => {
+  const token = req.headers.authorization
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.APP_SECRET)
+
+    req.userId = userId
+  }
+
+  next()
+})
+
 server.applyMiddleware({ app })
 
 // Start server

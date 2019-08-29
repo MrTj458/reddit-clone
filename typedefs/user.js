@@ -11,6 +11,7 @@ module.exports = gql`
     avatar: String!
     createdAt: Date
     updatedAt: Date
+    token: String
   }
 
   extend type Query {
@@ -20,5 +21,6 @@ module.exports = gql`
 
   extend type Mutation {
     createUser(username: String!, email: String!, password: String!): User!
+    signin(email: String!, password: String!): User!
   }
 `
