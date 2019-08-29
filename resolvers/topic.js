@@ -36,6 +36,25 @@ module.exports = {
         throw new ApolloError(e.message, 400)
       }
     },
+    async deleteTopic(parent, args, ctx, info) {
+      const topic = await Topic.findByPk(args.id)
+
+      if (!topic) {
+        throw new ApolloError('That topic does not exist', 404)
+      }
+
+      if (ctx.req.userId !== topic.userId) {
+        throw new AuthenticationError('Unable to delete other peoples topics')
+      }
+
+      try {
+        await topic.destroy()
+
+        return { msg: 'Topic deleted' }
+      } catch (e) {
+        throw new ApolloError(e.message, 400)
+      }
+    },
   },
   Topic: {
     user(topic) {

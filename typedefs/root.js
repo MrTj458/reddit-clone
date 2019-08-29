@@ -6,6 +6,10 @@ const { gql } = require('apollo-server-express')
 module.exports = gql`
   scalar Date
 
+  type DeleteMessage {
+    msg: String!
+  }
+
   type Query {
     _: String
   }

@@ -16,5 +16,6 @@ module.exports = gql`
 
   extend type Mutation {
     createTopic(name: String!, userId: Int!): Topic!
+    deleteTopic(id: Int!): DeleteMessage!
   }
 `
