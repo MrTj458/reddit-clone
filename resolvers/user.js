@@ -22,6 +22,21 @@ module.exports = {
 
       return user
     },
+    async me(parent, args, ctx, info) {
+      const { userId } = ctx.req
+
+      if (!userId) {
+        throw new AuthenticationError('You must be signed in to do that')
+      }
+
+      const user = await User.findByPk(userId)
+
+      if (!user) {
+        throw new ApolloError('That user does not exist', 404)
+      }
+
+      return user
+    },
   },
   Mutation: {
     async createUser(parent, args, ctx, info) {
