@@ -10,9 +10,11 @@ const validateUser = require('../validators/newUser')
  */
 module.exports = {
   Query: {
+    // Get all users
     users(parent, args, ctx, info) {
       return User.findAll()
     },
+    // Get a specific user by id
     async user(parent, args, ctx, info) {
       const user = await User.findByPk(args.id)
 
@@ -22,15 +24,19 @@ module.exports = {
 
       return user
     },
+    // Get the currently logged in user
     async me(parent, args, ctx, info) {
       const { userId } = ctx.req
 
+      // No JWT given
       if (!userId) {
         throw new AuthenticationError('You must be signed in to do that')
       }
 
+      // Find the user
       const user = await User.findByPk(userId)
 
+      // The user does not exist
       if (!user) {
         throw new ApolloError('That user does not exist', 404)
       }
@@ -39,6 +45,7 @@ module.exports = {
     },
   },
   Mutation: {
+    // Create a new user
     async createUser(parent, args, ctx, info) {
       let newUser = {
         username: args.username.toLowerCase(),
@@ -58,6 +65,7 @@ module.exports = {
         // Log in user
         const token = jwt.sign({ userId: newUser.id }, process.env.APP_SECRET)
 
+        // Put the token on the newUser object
         newUser.token = token
 
         return newUser
@@ -65,21 +73,27 @@ module.exports = {
         throw new ApolloError(e.message, 400)
       }
     },
+    // Sign in a user
     async signin(parent, args, ctx, info) {
       try {
+        // Find the user trying to sign in
         const user = await User.findOne({ where: { email: args.email } })
 
+        // User not found
         if (!user) {
           throw new ApolloError(`No user with email ${args.email}`)
         }
 
+        // Check password is correct
         const valid = await bcrypt.compare(args.password, user.password)
         if (!valid) {
           throw new AuthenticationError('Incorrect password')
         }
 
+        // Make JWT
         const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET)
 
+        // Put the token on the user
         user.token = token
 
         return user
@@ -89,6 +103,7 @@ module.exports = {
     },
   },
   User: {
+    // Get the topics that belong to a user
     topics(user) {
       return Topic.findAll({ where: { userId: user.id } })
     },

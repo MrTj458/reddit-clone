@@ -1,4 +1,7 @@
 'use strict'
+/**
+ * Topic model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Topic = sequelize.define(
     'Topic',
