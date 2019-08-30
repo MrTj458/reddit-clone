@@ -15,7 +15,7 @@ module.exports = gql`
   }
 
   extend type Query {
-    posts: [Post]!
+    posts(topicId: Int!): [Post]!
     post(id: Int!): Post!
   }
 

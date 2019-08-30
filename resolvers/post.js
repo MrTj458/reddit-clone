@@ -11,7 +11,7 @@ module.exports = {
   Query: {
     // Get all posts
     posts(parent, args, ctx, info) {
-      return Post.findAll()
+      return Post.findAll({ where: { topicId: args.topicId } })
     },
     // Get a post by ID
     async post(parent, args, ctx, info) {
