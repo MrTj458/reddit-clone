@@ -13,6 +13,7 @@ module.exports = gql`
     updatedAt: Date
     token: String
     topics: [Topic]!
+    posts: [Post]!
   }
 
   extend type Query {
