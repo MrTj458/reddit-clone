@@ -29,7 +29,13 @@ module.exports = {
       }
     },
     async deleteLike(parent, args, ctx, info) {
-      const like = await Like.findByPk(args.id)
+      if (!ctx.req.userId) {
+        throw new AuthenticationError('You must sign in to delete likes')
+      }
+
+      const like = await Like.findOne({
+        where: { userId: ctx.req.userId, postId: args.postId },
+      })
 
       if (!like) {
         throw new ApolloError('That like does not exist')
