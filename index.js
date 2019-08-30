@@ -23,9 +23,15 @@ const app = express()
 app.use(async (req, res, next) => {
   const token = req.headers.authorization
   if (token) {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET)
+    try {
+      const { userId } = jwt.verify(token, process.env.APP_SECRET)
 
-    req.userId = userId
+      req.userId = userId
+    } catch (e) {
+      return res.send(
+        'Invalid JWT. Try clearing local storage and refreshing the page'
+      )
+    }
   }
 
   next()
