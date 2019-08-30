@@ -67,6 +67,9 @@ module.exports = {
     },
     // Delete a topic
     async deleteTopic(parent, args, ctx, info) {
+      if (!ctx.req.userId) {
+        throw new AuthenticationError('You must sign in to delete topics')
+      }
       // Find the topic
       const topic = await Topic.findByPk(args.id)
 

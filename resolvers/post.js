@@ -72,6 +72,9 @@ module.exports = {
     },
     // Delete a post by id
     async deletePost(parent, args, ctx, info) {
+      if (!ctx.req.userId) {
+        throw new AuthenticationError('You must sign in to delete posts')
+      }
       // Get post
       const post = await Post.findByPk(args.id)
 

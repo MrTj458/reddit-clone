@@ -35,6 +35,10 @@ module.exports = {
       }
     },
     async deleteComment(parent, args, ctx, info) {
+      if (!ctx.req.userId) {
+        throw new AuthenticationError('You must sign in to delete comments')
+      }
+
       const comment = await Comment.findByPk(args.id)
 
       if (!comment) {
