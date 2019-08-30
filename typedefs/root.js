@@ -10,6 +10,12 @@ module.exports = gql`
     msg: String!
   }
 
+  type PageInfo {
+    page: Int!
+    pages: Int!
+    count: Int!
+  }
+
   type Query {
     _: String
   }

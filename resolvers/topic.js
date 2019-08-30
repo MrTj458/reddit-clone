@@ -10,8 +10,20 @@ const validateTopic = require('../validators/newTopic')
 module.exports = {
   Query: {
     // Get all topics
-    topics(parent, args, ctx, info) {
-      return Topic.findAll()
+    async topics(parent, args, ctx, info) {
+      const topics = await Topic.findAll({
+        limit: args.limit,
+        offset: args.page * args.limit - args.limit,
+      })
+      const count = await Topic.count()
+
+      const pageInfo = {
+        page: args.page,
+        pages: Math.ceil(count / args.limit),
+        count,
+      }
+
+      return { pageInfo, nodes: topics }
     },
     // Get a specific topic by id
     async topic(parent, args, ctx, info) {

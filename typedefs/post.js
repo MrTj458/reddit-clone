@@ -14,8 +14,13 @@ module.exports = gql`
     updatedAt: Date
   }
 
+  type PostConnection {
+    pageInfo: PageInfo!
+    nodes: [Post]!
+  }
+
   extend type Query {
-    posts(topicId: Int!): [Post]!
+    posts(page: Int!, limit: Int!, topicId: Int!): PostConnection!
     post(id: Int!): Post!
   }
 

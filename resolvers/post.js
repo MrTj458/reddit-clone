@@ -10,8 +10,21 @@ const validatePost = require('../validators/newPost.js')
 module.exports = {
   Query: {
     // Get all posts
-    posts(parent, args, ctx, info) {
-      return Post.findAll({ where: { topicId: args.topicId } })
+    async posts(parent, args, ctx, info) {
+      const posts = await Post.findAll({
+        where: { topicId: args.topicId },
+        limit: args.limit,
+        offset: args.page * args.limit - args.limit,
+      })
+      const count = await Post.count()
+
+      const pageInfo = {
+        page: args.page,
+        pages: Math.ceil(count / args.limit),
+        count,
+      }
+
+      return { pageInfo, nodes: posts }
     },
     // Get a post by ID
     async post(parent, args, ctx, info) {
