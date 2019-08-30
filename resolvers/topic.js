@@ -10,7 +10,7 @@ const validateTopic = require('../validators/newTopic')
 module.exports = {
   Query: {
     // Get all topics
-    async topics(parent, args, ctx, info) {
+    async topics(parent, args) {
       const topics = await Topic.findAll({
         limit: args.limit,
         offset: args.page * args.limit - args.limit,
@@ -26,7 +26,7 @@ module.exports = {
       return { pageInfo, nodes: topics }
     },
     // Get a specific topic by id
-    async topic(parent, args, ctx, info) {
+    async topic(parent, args) {
       // Find the topic
       const topic = await Topic.findByPk(args.id)
 
@@ -40,7 +40,7 @@ module.exports = {
   },
   Mutation: {
     // Create a new topic
-    async createTopic(parent, args, ctx, info) {
+    async createTopic(parent, args, ctx) {
       const userId = ctx.req.userId
 
       if (!userId) {
@@ -66,7 +66,7 @@ module.exports = {
       }
     },
     // Delete a topic
-    async deleteTopic(parent, args, ctx, info) {
+    async deleteTopic(parent, args, ctx) {
       if (!ctx.req.userId) {
         throw new AuthenticationError('You must sign in to delete topics')
       }

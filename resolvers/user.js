@@ -11,11 +11,11 @@ const validateUser = require('../validators/newUser')
 module.exports = {
   Query: {
     // Get all users
-    users(parent, args, ctx, info) {
+    users() {
       return User.findAll()
     },
     // Get a specific user by id
-    async user(parent, args, ctx, info) {
+    async user(parent, args) {
       const user = await User.findByPk(args.id)
 
       if (!user) {
@@ -25,7 +25,7 @@ module.exports = {
       return user
     },
     // Get the currently logged in user
-    async me(parent, args, ctx, info) {
+    async me(parent, args, ctx) {
       const { userId } = ctx.req
 
       // No JWT given
@@ -46,7 +46,7 @@ module.exports = {
   },
   Mutation: {
     // Create a new user
-    async createUser(parent, args, ctx, info) {
+    async createUser(parent, args) {
       let newUser = {
         username: args.username.toLowerCase(),
         email: args.email,
@@ -74,7 +74,7 @@ module.exports = {
       }
     },
     // Sign in a user
-    async signin(parent, args, ctx, info) {
+    async signin(parent, args) {
       try {
         // Find the user trying to sign in
         const user = await User.findOne({ where: { email: args.email } })

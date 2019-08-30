@@ -10,7 +10,7 @@ const validatePost = require('../validators/newPost.js')
 module.exports = {
   Query: {
     // Get all posts
-    async posts(parent, args, ctx, info) {
+    async posts(parent, args) {
       const posts = await Post.findAll({
         where: { topicId: args.topicId },
         limit: args.limit,
@@ -27,7 +27,7 @@ module.exports = {
       return { pageInfo, nodes: posts }
     },
     // Get a post by ID
-    async post(parent, args, ctx, info) {
+    async post(parent, args) {
       // Get the post
       const post = await Post.findByPk(args.id)
 
@@ -41,7 +41,7 @@ module.exports = {
   },
   Mutation: {
     // Create a new post
-    async createPost(parent, args, ctx, info) {
+    async createPost(parent, args, ctx) {
       // Get current user
       const userId = ctx.req.userId
 
@@ -71,7 +71,7 @@ module.exports = {
       }
     },
     // Delete a post by id
-    async deletePost(parent, args, ctx, info) {
+    async deletePost(parent, args, ctx) {
       if (!ctx.req.userId) {
         throw new AuthenticationError('You must sign in to delete posts')
       }

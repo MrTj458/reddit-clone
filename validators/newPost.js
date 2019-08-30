@@ -4,7 +4,7 @@ const { Topic } = require('../models')
 /**
  * Validate new Topic
  */
-module.exports = async ({ title, body, userId, topicId }) => {
+module.exports = async ({ title, body, topicId }) => {
   // Make sure a name was given
   if (title.length === 0) {
     throw new ApolloError('Posts must be given a title')

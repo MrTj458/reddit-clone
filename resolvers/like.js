@@ -6,7 +6,7 @@ const validateLike = require('../validators/newLike')
 
 module.exports = {
   Mutation: {
-    async createLike(parent, args, ctx, info) {
+    async createLike(parent, args, ctx) {
       let userId = ctx.req.userId
 
       if (!userId) {
@@ -28,7 +28,7 @@ module.exports = {
         throw new ApolloError(e.message, 400)
       }
     },
-    async deleteLike(parent, args, ctx, info) {
+    async deleteLike(parent, args, ctx) {
       if (!ctx.req.userId) {
         throw new AuthenticationError('You must sign in to delete likes')
       }

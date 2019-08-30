@@ -6,12 +6,12 @@ const validateComment = require('../validators/newComment')
 
 module.exports = {
   Query: {
-    comments(parent, args, ctx, info) {
+    comments(parent, args) {
       return Comment.findAll({ where: { postId: args.postId } })
     },
   },
   Mutation: {
-    async createComment(parent, args, ctx, info) {
+    async createComment(parent, args, ctx) {
       const userId = ctx.req.userId
 
       if (!userId) {
@@ -34,7 +34,7 @@ module.exports = {
         throw new ApolloError(e.message, 400)
       }
     },
-    async deleteComment(parent, args, ctx, info) {
+    async deleteComment(parent, args, ctx) {
       if (!ctx.req.userId) {
         throw new AuthenticationError('You must sign in to delete comments')
       }
@@ -45,7 +45,7 @@ module.exports = {
         throw new ApolloError('That comment does not exist')
       }
 
-      if (ctx.req.userId !== post.userId) {
+      if (ctx.req.userId !== comment.userId) {
         throw new AuthenticationError('Unable to delete other users comments')
       }
 
