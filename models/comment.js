@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const comment = sequelize.define(
-    'comment',
+  const Comment = sequelize.define(
+    'Comment',
     {
       body: {
         type: DataTypes.TEXT,
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   )
-  comment.associate = function(models) {
+  Comment.associate = function(models) {
     // associations can be defined here
   }
-  return comment
+  return Comment
 }
