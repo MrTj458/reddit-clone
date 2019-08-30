@@ -59,7 +59,7 @@ module.exports = {
 
       // The user is either not logged in or does not own this topic
       if (ctx.req.userId !== topic.userId) {
-        throw new AuthenticationError('Unable to delete other peoples topics')
+        throw new AuthenticationError('Unable to delete other users topics')
       }
 
       try {
