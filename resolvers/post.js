@@ -1,6 +1,6 @@
 const { ApolloError, AuthenticationError } = require('apollo-server-express')
 
-const { Post, User, Topic } = require('../models')
+const { Post, User, Topic, Like } = require('../models')
 
 const validatePost = require('../validators/newPost.js')
 
@@ -103,6 +103,9 @@ module.exports = {
     // Get the posts topic
     topic(post) {
       return Topic.findByPk(post.topicId)
+    },
+    likes(post) {
+      return Like.findAll({ where: { postId: post.id } })
     },
   },
 }

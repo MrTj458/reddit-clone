@@ -14,6 +14,7 @@ module.exports = gql`
     token: String
     topics: [Topic]!
     posts: [Post]!
+    likes: [Like]!
   }
 
   extend type Query {

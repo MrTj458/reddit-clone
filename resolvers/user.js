@@ -2,7 +2,7 @@ const { ApolloError, AuthenticationError } = require('apollo-server-express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const { User, Topic, Post } = require('../models')
+const { User, Topic, Post, Like } = require('../models')
 const validateUser = require('../validators/newUser')
 
 /**
@@ -109,6 +109,9 @@ module.exports = {
     },
     posts(user) {
       return Post.findAll({ where: { userId: user.id } })
+    },
+    likes(user) {
+      return Like.findAll({ where: { userId: user.id } })
     },
   },
 }

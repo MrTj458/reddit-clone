@@ -10,6 +10,7 @@ module.exports = gql`
     body: String!
     user: User!
     topic: Topic!
+    likes: [Like]!
     createdAt: Date
     updatedAt: Date
   }

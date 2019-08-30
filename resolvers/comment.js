@@ -42,7 +42,7 @@ module.exports = {
       }
 
       if (ctx.req.userId !== post.userId) {
-        throw new AuthenticationError('Unable to delete other peoples comments')
+        throw new AuthenticationError('Unable to delete other users comments')
       }
 
       try {
