@@ -29,10 +29,16 @@ module.exports = {
   Mutation: {
     // Create a new topic
     async createTopic(parent, args, ctx, info) {
+      const userId = ctx.req.userId
+
+      if (!userId) {
+        throw new AuthenticationError('You must be signed in to create a topic')
+      }
+
       // Create topic object
       let newTopic = {
         name: args.name,
-        userId: args.userId,
+        userId,
       }
 
       // Validate topic

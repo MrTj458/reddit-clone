@@ -24,11 +24,17 @@ module.exports = {
   },
   Mutation: {
     async createPost(parent, args, ctx, info) {
+      const userId = ctx.req.userId
+
+      if (!userId) {
+        throw new AuthenticationError('You must be signed in to create a post')
+      }
+
       let newPost = {
         title: args.title,
         body: args.body,
-        userId: args.userId,
         topicId: args.topicId,
+        userId,
       }
 
       await validatePost(newPost)
