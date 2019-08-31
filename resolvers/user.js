@@ -30,7 +30,7 @@ module.exports = {
 
       // No JWT given
       if (!userId) {
-        throw new AuthenticationError('You must be signed in to do that')
+        return null
       }
 
       // Find the user
