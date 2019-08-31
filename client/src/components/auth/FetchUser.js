@@ -21,8 +21,6 @@ const FetchUser = ({ children }) => {
   if (loading) return <h1>Loading...</h1>
   if (error) return <h1>Error: {error.message}</h1>
 
-  console.log(data.me)
-
   return <UserProvider value={data.me}>{children}</UserProvider>
 }
 
