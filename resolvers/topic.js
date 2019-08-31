@@ -50,6 +50,7 @@ module.exports = {
       // Create topic object
       let newTopic = {
         name: args.name,
+        description: args.description,
         userId,
       }
 

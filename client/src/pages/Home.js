@@ -1,7 +1,9 @@
 import React from 'react'
 
+import TopicsList from '../components/Topics/TopicsList'
+
 const Home = () => {
-  return <h1>Home</h1>
+  return <TopicsList />
 }
 
 export default Home

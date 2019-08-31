@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'This topic already exists',
         },
       },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: {
+          args: false,
+          msg: 'Topics must be given a description',
+        },
+      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: {
