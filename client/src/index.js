@@ -4,6 +4,8 @@ import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import './styles/app.css'
+
 import FetchUser from './components/auth/FetchUser'
 import App from './App'
 
