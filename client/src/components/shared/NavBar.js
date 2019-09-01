@@ -32,8 +32,13 @@ const Nav = styled.div`
   }
 `
 
+const handleSignout = refetchMe => {
+  localStorage.removeItem('token')
+  refetchMe()
+}
+
 const NavBar = () => {
-  const user = React.useContext(userContext)
+  const { user, refetchMe } = React.useContext(userContext)
 
   return (
     <Nav>
@@ -45,7 +50,11 @@ const NavBar = () => {
       {/* Right nav */}
       <div>
         {user && <Link to={`/user/${user.id}`}>{user.username}</Link>}
-        {user ? <button>Sign Out</button> : <Link to="/signin">Sign in</Link>}
+        {user ? (
+          <button onClick={() => handleSignout(refetchMe)}>Sign Out</button>
+        ) : (
+          <Link to="/signin">Sign in</Link>
+        )}
       </div>
     </Nav>
   )

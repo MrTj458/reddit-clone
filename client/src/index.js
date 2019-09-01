@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost'
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink,
+  concat,
+} from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -9,27 +15,26 @@ import './styles/app.css'
 import FetchUser from './components/auth/FetchUser'
 import App from './App'
 
-const getClient = () => {
-  const headers = {
-    Authorization: localStorage.getItem('token') || '',
-  }
+const httpLink = new HttpLink({
+  uri: '/graphql',
+})
 
-  const link = new HttpLink({
-    uri: '/graphql',
-    credentials: 'include',
-    headers,
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: localStorage.getItem('token') || '',
+    },
   })
+  return forward(operation)
+})
 
-  const cache = new InMemoryCache()
-
-  return new ApolloClient({
-    cache,
-    link,
-  })
-}
+const client = new ApolloClient({
+  link: concat(authMiddleware, httpLink),
+  cache: new InMemoryCache(),
+})
 
 ReactDOM.render(
-  <ApolloProvider client={getClient()}>
+  <ApolloProvider client={client}>
     <FetchUser>
       <Router>
         <App />
