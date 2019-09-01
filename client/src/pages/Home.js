@@ -2,7 +2,7 @@ import React from 'react'
 
 import TopicsList from '../components/Topics/TopicsList'
 
-const Home = () => {
+const Home = ({ match, history }) => {
   return <TopicsList />
 }
 

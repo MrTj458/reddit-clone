@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import NavBar from './components/shared/NavBar'
 import Home from './pages/Home'
@@ -10,7 +10,8 @@ const App = () => {
     <>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" render={() => <Redirect to="/1" />} />
+        <Route path="/:page" component={Home} />
       </Switch>
     </>
   )
