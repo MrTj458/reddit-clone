@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import NavBar from './components/shared/NavBar'
 import Home from './pages/Home'
 import Topic from './pages/Topic'
+import Signup from './components/auth/Signup'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -31,6 +32,9 @@ const App = () => {
             )}
           />
           <Route exact path="/topic/:id/:page" component={Topic} />
+
+          {/* Auth */}
+          <Route exact path="/signup" component={Signup} />
         </Switch>
       </Container>
     </>

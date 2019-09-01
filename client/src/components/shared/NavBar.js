@@ -55,6 +55,7 @@ const NavBar = () => {
         ) : (
           <Link to="/signin">Sign in</Link>
         )}
+        {!user && <Link to="/signup">Sign Up</Link>}
       </div>
     </Nav>
   )
