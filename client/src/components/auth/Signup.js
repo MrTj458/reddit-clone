@@ -3,8 +3,14 @@ import React from 'react'
 import {useMutation} from '@apollo/react-hooks'
 import {gql } from 'apollo-boost'
 import {withRouter} from 'react-router-dom'
+import styled from 'styled-components'
 
 import userContext from './userContext';
+
+const Label = styled.label`
+  display: block;
+  margin: 1rem;
+`
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($email: String!, $username: String!, $password: String!) {
@@ -37,32 +43,33 @@ const Signup = ({history}) => {
       user = await signup()
     }
 
-    localStorage.setItem('token', user.data.createUser.token)
-    refetchMe()
-    history.push('/')
+    if (user) {
+      localStorage.setItem('token', user.data.createUser.token)
+      refetchMe()
+      history.push('/')
+    }
   }
-
-  if (error) return <h1>Error: {error.message}</h1>
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <h1>{error.message.split('GraphQL error: ')[1]}</h1>}
       <fieldset disabled={loading}>
-        <label htmlFor="email">
-          Email
+        <Label htmlFor="email">
+          Email{' '}
           <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label htmlFor="username">
-          Username
+        </Label>
+        <Label htmlFor="username">
+          Username{' '}
           <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label htmlFor="password">
-          Password
+        </Label>
+        <Label htmlFor="password">
+          Password{' '}
           <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <label htmlFor="password2">
-          Confirm Password
+        </Label>
+        <Label htmlFor="password2">
+          Confirm Password{' '}
           <input type="password" name="password2" value={password2} onChange={(e) => setPassword2(e.target.value)} />
-        </label>
+        </Label>
         
         <button type="submit">{loading ? "Signing up..." : "Sign up!"}</button>
       </fieldset>
