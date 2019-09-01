@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import NavBar from './components/shared/NavBar'
 import Home from './pages/Home'
+import Topic from './pages/Topic'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -17,8 +18,19 @@ const App = () => {
       <NavBar />
       <Container>
         <Switch>
+          {/* Home page / topics page */}
           <Route exact path="/" render={() => <Redirect to="/home/1" />} />
           <Route exact path="/home/:page" component={Home} />
+
+          {/* Posts page */}
+          <Route
+            exact
+            path="/topic/:id"
+            render={({ match }) => (
+              <Redirect to={`/topic/${match.params.id}/1`} />
+            )}
+          />
+          <Route exact path="/topic/:id/:page" component={Topic} />
         </Switch>
       </Container>
     </>
