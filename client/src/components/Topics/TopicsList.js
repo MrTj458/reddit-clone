@@ -2,6 +2,7 @@ import React from 'react'
 
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
+import { withRouter } from 'react-router-dom'
 
 import Topic from './Topic'
 import Pagination from '../shared/Pagination'
@@ -23,8 +24,8 @@ const TOPICS_QUERY = gql`
   }
 `
 
-const TopicsList = ({ match, history }) => {
-  const [page, setPage] = React.useState(1)
+const TopicsList = ({ match }) => {
+  const page = Number(match.params.page)
 
   const { data, loading, error } = useQuery(TOPICS_QUERY, {
     variables: { page, limit: 5 },
@@ -38,13 +39,13 @@ const TopicsList = ({ match, history }) => {
 
   return (
     <>
-      <Pagination page={page} pages={pageInfo.pages} setPage={setPage} />
+      <Pagination page={page} pages={pageInfo.pages} />
       {topics.map(topic => (
         <Topic key={topic.id} topic={topic} />
       ))}
-      <Pagination page={page} pages={pageInfo.pages} setPage={setPage} />
+      <Pagination page={page} pages={pageInfo.pages} />
     </>
   )
 }
 
-export default TopicsList
+export default withRouter(TopicsList)

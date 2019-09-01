@@ -1,16 +1,35 @@
 import React from 'react'
 
-const Pagination = ({ page, pages, setPage }) => {
+import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
+
+const PaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+const PaginationButton = styled.button`
+  font-size: 1.5rem;
+`
+
+const Pagination = ({ page, pages, setPage, history }) => {
   return (
-    <>
-      <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+    <PaginationContainer>
+      <PaginationButton
+        onClick={() => history.push(`/${page - 1}`)}
+        disabled={page === 1}
+      >
         Last
-      </button>
-      <button onClick={() => setPage(page + 1)} disabled={page === pages}>
+      </PaginationButton>
+      <PaginationButton
+        onClick={() => history.push(`/${page + 1}`)}
+        disabled={page === pages}
+      >
         Next
-      </button>
-    </>
+      </PaginationButton>
+    </PaginationContainer>
   )
 }
 
-export default Pagination
+export default withRouter(Pagination)
