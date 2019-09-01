@@ -17,13 +17,13 @@ const Pagination = ({ page, pages, setPage, history }) => {
   return (
     <PaginationContainer>
       <PaginationButton
-        onClick={() => history.push(`/${page - 1}`)}
+        onClick={() => history.push(`/home/${page - 1}`)}
         disabled={page === 1}
       >
         Last
       </PaginationButton>
       <PaginationButton
-        onClick={() => history.push(`/${page + 1}`)}
+        onClick={() => history.push(`/home/${page + 1}`)}
         disabled={page === pages}
       >
         Next
