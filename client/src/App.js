@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Topic from './pages/Topic'
 import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
+import Post from './components/posts/Post'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -33,6 +34,9 @@ const App = () => {
             )}
           />
           <Route exact path="/topic/:id/:page" component={Topic} />
+
+          {/* Post Page */}
+          <Route exact path="/post/:id" component={Post} />
 
           {/* Auth */}
           <Route exact path="/signup" component={Signup} />

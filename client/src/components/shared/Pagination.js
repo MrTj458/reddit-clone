@@ -13,17 +13,17 @@ const PaginationButton = styled.button`
   font-size: 1.5rem;
 `
 
-const Pagination = ({ page, pages, setPage, history }) => {
+const Pagination = ({ page, pages, history, url }) => {
   return (
     <PaginationContainer>
       <PaginationButton
-        onClick={() => history.push(`/home/${page - 1}`)}
+        onClick={() => history.push(`${url}/${page - 1}`)}
         disabled={page === 1}
       >
         Last
       </PaginationButton>
       <PaginationButton
-        onClick={() => history.push(`/home/${page + 1}`)}
+        onClick={() => history.push(`${url}/${page + 1}`)}
         disabled={page === pages}
       >
         Next

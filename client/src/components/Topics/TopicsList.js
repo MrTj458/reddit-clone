@@ -4,7 +4,7 @@ import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import { withRouter } from 'react-router-dom'
 
-import Topic from './Topic'
+import Topic from './TopicItem'
 import Pagination from '../shared/Pagination'
 
 const TOPICS_QUERY = gql`
@@ -39,11 +39,11 @@ const TopicsList = ({ match }) => {
 
   return (
     <>
-      <Pagination page={page} pages={pageInfo.pages} />
+      <Pagination page={page} pages={pageInfo.pages} url="/home" />
       {topics.map(topic => (
         <Topic key={topic.id} topic={topic} />
       ))}
-      <Pagination page={page} pages={pageInfo.pages} />
+      <Pagination page={page} pages={pageInfo.pages} url="/home" />
     </>
   )
 }
