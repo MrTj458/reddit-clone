@@ -2,8 +2,6 @@ import React from 'react'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 
-import { POSTS_QUERY } from './PostsList'
-
 const CREATE_POST_MUTATION = gql`
   mutation CREATE_POST_MUTATION(
     $title: String!
