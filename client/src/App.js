@@ -10,6 +10,7 @@ import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
 import Post from './components/posts/Post'
 import TopicForm from './components/Topics/TopicForm'
+import PostForm from './components/posts/PostForm'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -41,6 +42,9 @@ const App = () => {
 
           {/* Post Page */}
           <Route exact path="/post/:id" component={Post} />
+
+          {/* Create Post */}
+          <Route exact path="/new/post/:topicId" component={PostForm} />
 
           {/* Auth */}
           <Route exact path="/signup" component={Signup} />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 
@@ -32,6 +33,7 @@ const Topic = ({ match }) => {
     <>
       <Header>{topic.name}</Header>
       <h2>{topic.description}</h2>
+      <Link to={`/new/post/${topic.id}`}>Create New Post</Link>
       <p>Topic created by: {topic.user.username}</p>
       <Hr />
       <PostsList />

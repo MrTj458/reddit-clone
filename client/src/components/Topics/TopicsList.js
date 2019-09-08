@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import Topic from './TopicItem'
 import Pagination from '../shared/Pagination'
 
-const TOPICS_QUERY = gql`
+export const TOPICS_QUERY = gql`
   query TOPICS_QUERY($page: Int!, $limit: Int!) {
     topics(page: $page, limit: $limit) {
       pageInfo {

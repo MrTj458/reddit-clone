@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import PostItem from './PostItem'
 import Pagination from '../shared/Pagination'
 
-const POSTS_QUERY = gql`
+export const POSTS_QUERY = gql`
   query POSTS_QUERY($topicId: Int!, $page: Int!, $limit: Int!) {
     posts(topicId: $topicId, page: $page, limit: $limit) {
       pageInfo {
@@ -50,6 +50,9 @@ const PostsList = ({ match }) => {
 
   return (
     <>
+      <p>
+        Page {page} of {pageInfo.pages}
+      </p>
       <Pagination
         page={page}
         pages={pageInfo.pages}

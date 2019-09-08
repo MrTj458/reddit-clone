@@ -2,6 +2,8 @@ import React from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost'
 
+import { TOPICS_QUERY } from './TopicsList'
+
 const CREATE_TOPIC_MUTATION = gql`
   mutation CREATE_TOPIC_MUTATION($name: String!, $description: String!) {
     createTopic(name: $name, description: $description) {

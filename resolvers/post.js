@@ -16,7 +16,7 @@ module.exports = {
         limit: args.limit,
         offset: args.page * args.limit - args.limit,
       })
-      const count = await Post.count()
+      const count = await Post.count({ where: { topicId: args.topicId } })
 
       const pageInfo = {
         page: args.page,
