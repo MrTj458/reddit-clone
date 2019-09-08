@@ -9,6 +9,7 @@ import Topic from './pages/Topic'
 import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
 import Post from './components/posts/Post'
+import TopicForm from './components/Topics/TopicForm'
 
 const Container = styled.div`
   max-width: 1000px;
@@ -24,6 +25,9 @@ const App = () => {
           {/* Home page / topics page */}
           <Route exact path="/" render={() => <Redirect to="/home/1" />} />
           <Route exact path="/home/:page" component={Home} />
+
+          {/* Create topic */}
+          <Route exact path="/new/topic" component={TopicForm} />
 
           {/* Posts page */}
           <Route
