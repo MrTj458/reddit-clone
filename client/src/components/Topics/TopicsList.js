@@ -29,6 +29,7 @@ const TopicsList = ({ match }) => {
 
   const { data, loading, error } = useQuery(TOPICS_QUERY, {
     variables: { page, limit: 5 },
+    fetchPolicy: 'cache-and-network',
   })
 
   if (loading) return <h1>Loading...</h1>

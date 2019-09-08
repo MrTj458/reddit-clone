@@ -38,6 +38,7 @@ const PostsList = ({ match }) => {
 
   const { data, error, loading } = useQuery(POSTS_QUERY, {
     variables: { page, topicId, limit: 5 },
+    fetchPolicy: 'cache-and-network',
   })
 
   if (loading) return <h1>Loading...</h1>
